@@ -18,10 +18,9 @@ export function CreateTodo() {
                 body: JSON.stringify({
                     title: title,
                     description: description,
-                    completed: false
                 }),
                 headers: {
-                    "content-Type": "application/json"
+                    "content-type": "application/json"
                 }
             }).then(async (res) => {
                 const json = await res.json();

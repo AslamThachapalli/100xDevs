@@ -42,7 +42,7 @@ app.put('/completed', async (req, res) => {
     const payload = req.body;
     const completedTodo = updateTodo.safeParse(payload);
     if (!completedTodo.success) {
-        res.send(411).json({
+        res.status(411).json({
             msg: "You send wrong inputs",
         });
         return;
