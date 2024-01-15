@@ -1,7 +1,7 @@
 const zod = require('zod');
 
 const cardSchema = zod.object({
-    title: zod.string(),
+    name: zod.string(),
     description: zod.string(),
     interests: zod.string().array(),
     linkedInUrl: zod.string().optional(),

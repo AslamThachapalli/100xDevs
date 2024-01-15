@@ -1,0 +1,26 @@
+.top-level-container {
+  display: flex;
+  
+}
+
+.card {
+  width: 500px;
+  height: 280px;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  margin: 8px;
+  padding: 20px;
+  box-shadow: 1px 1px 5px 1px lightgray;
+}
+
+.link-button {
+  background-color: rgb(17, 122, 250);
+  width: 100px;
+  margin-right: 12px;
+  border-radius: 8px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
