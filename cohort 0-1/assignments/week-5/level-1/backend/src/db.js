@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const { mongoUrl } = require('./secret');
 
-mongoose.connect('mongodb+srv://aslamdevelop:Ass5Mongo@cluster0.vryu7ml.mongodb.net/');
+mongoose.connect(mongoUrl);
 
 const cardSchema = new mongoose.Schema({
     name: String,
