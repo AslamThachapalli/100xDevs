@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const { cardSchema } = require('./src/types');
 const { Card } = require('./src/db');
 
@@ -6,6 +7,7 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/cards', async (req, res) =>  {
     const cards = await Card.find({});

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import '../App.css'
 
-export default function CreateCardForm() {
+export default function CreateCardForm({setCards}) {
     const [interestCount, setInterestCount] = useState(1);
     const [name, setName] = useState('');
     const [about, setAbout] = useState('');
@@ -47,30 +47,52 @@ export default function CreateCardForm() {
         setInterestCount(interestCount + 1);
     }
 
+    function resetForm() {
+        setName('');
+        setAbout('');
+        setInterestCount(1);
+        interests.current = [];
+        setLinkedInUrl('');
+        setTwitterUrl('');
+    }
+
     function handleOnSubmit(e) {
         const reqBody = {
             name,
             description: about,
-            interests: interests.current,
+            interests: interests.current.filter(item => item !== ''),
             linkedInUrl,
             twitterUrl
         }
+        
+        fetch('http://localhost:3000/cards', {
+            method: 'POST',
+            body: JSON.stringify(reqBody),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then((res) => {
+            console.log(res);
+            resetForm();
+            setCards([])
+        });
+
         e.preventDefault()
     }
 
     return (
         <form onSubmit={(e) => handleOnSubmit(e)}>
             <div className='create-card-form'>
-                <input type="text" placeholder='name' value={name} onChange={(e) => handleInputOnChange(e, 'name')} />
-                <input type="text" placeholder='about' onChange={(e) => handleInputOnChange(e, 'about')} />
+                <input type="text" placeholder='name' value={name} required onChange={(e) => handleInputOnChange(e, 'name')} />
+                <input type="text" placeholder='about' value={about} required onChange={(e) => handleInputOnChange(e, 'about')} />
                 
                 <h3 style={{ marginTop: 0 }}>Interests</h3>
                 <ul>{interestFields}</ul>
 
                 <button onClick={handleInterestFieldAddition}>Add Interests</button>
 
-                <input type="text" placeholder='LinkedIn Url' onChange={(e) => handleInputOnChange(e, 'linkedInUrl')} />
-                <input type="text" placeholder='Twitter Url' onChange={(e) => handleInputOnChange(e, 'twitterUrl')} />
+                <input type="text" placeholder='LinkedIn Url' value={linkedInUrl} onChange={(e) => handleInputOnChange(e, 'linkedInUrl')} />
+                <input type="text" placeholder='Twitter Url' value={twitterUrl} onChange={(e) => handleInputOnChange(e, 'twitterUrl')} />
 
                 <input type="submit" value='Submit' />
             </div>
